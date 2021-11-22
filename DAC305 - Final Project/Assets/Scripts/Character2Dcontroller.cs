@@ -11,6 +11,7 @@ public class Character2Dcontroller : MonoBehaviour
     [SerializeField] private LayerMask wallLayer;
     private float walljumpcooldown;
     private bool dash = false;
+    private float deafaultSpeed = 1;
     private void Start()
     {
         body = GetComponent<Rigidbody2D>();
@@ -58,8 +59,10 @@ public class Character2Dcontroller : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftShift) && movement != 0)
         {
-            body.velocity = body.velocity * 2;
-            dash = true;
+            if (isGrounded() && !onWall())
+            {
+                body.velocity = body.velocity * 2;
+            }
         }
         else
             dash = false;
