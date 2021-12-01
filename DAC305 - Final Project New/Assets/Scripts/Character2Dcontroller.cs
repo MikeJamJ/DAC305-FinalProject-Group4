@@ -47,7 +47,7 @@ public class Character2Dcontroller : MonoBehaviour
         animator.SetBool("GroundCheck", isGrounded());
         animator.SetBool("WallCheck", onWall());
         animator.SetBool("Sprint", sprint);
-        animator.SetBool("Fall", (body.velocity.y < -0.01f) && !isGrounded());
+        animator.SetBool("Fall", (body.velocity.y < -0.3f) && !onWall());
 
         // Handle all logic for when character is on the ground
         if (isGrounded())
@@ -123,15 +123,19 @@ public class Character2Dcontroller : MonoBehaviour
                 body.velocity = new Vector2(body.velocity.x, body.velocity.y);
             }
         }
+
+        
     }
 
     // Function for handling jumping logic
     private void Jump()
     {
-        if (!isGrounded())
+        Debug.Log("Jump");
+        if (isGrounded())
         {
             // Increase y velocity of character if they are on the ground
             body.velocity = new Vector2(body.velocity.x, jumpPower);
+            Debug.Log(body.velocity.y);
         }
         else if (onWall())
         {
