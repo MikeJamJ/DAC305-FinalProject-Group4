@@ -19,12 +19,14 @@ public class StaminaBar : MonoBehaviour
     {
         instance = this;
     }
+
     void Start()
     {
         currentStamina = maxStamina;
         staminaBar.maxValue = maxStamina;
         staminaBar.value = maxStamina;
     }
+
     public void UseStamina(int amount)
     {
         if(currentStamina - amount >= 0)
