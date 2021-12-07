@@ -124,6 +124,10 @@ public class Character2Dcontroller : MonoBehaviour
             }
         }
 
+        if (sprint)
+        {
+            StaminaBar.instance.UseStamina(1);
+        }
         
     }
 
