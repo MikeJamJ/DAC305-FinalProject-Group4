@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class FinishLine : MonoBehaviour
-{
+{       
     void OnTriggerEnter2D(Collider2D collision)
-    {
+    {   
+        // If the player has touched the finihs line, enter level complete
         if(collision.tag == "Player")
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            GameManager.instance.LevelComplete();
         }
     }
 }

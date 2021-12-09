@@ -21,6 +21,5 @@ public class CameraController : MonoBehaviour
         temp.x = playerTransform.position.x;    // get current character y position
         temp.y = playerTransform.position.y;    // get current character y position
         transform.position = temp;              // set new camera position
-
     }
 }
