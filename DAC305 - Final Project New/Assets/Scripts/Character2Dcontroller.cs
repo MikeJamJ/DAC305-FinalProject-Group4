@@ -9,13 +9,12 @@ public class Character2Dcontroller : MonoBehaviour
     [SerializeField] private int sprintStamina;     // stamina used when sprinting
     [SerializeField] private int climbStamina;      // stamina used when climbing
     [SerializeField] private int sprintJumpStamina; // stamina used when jumping after sprinting
-    //[SerializeField] private LayerMask wallLayer;   // wall object layer 
 
     private Rigidbody2D body;           // physics body of character
     private Animator animator;          // animator of character
     private BoxCollider2D boxCollider;  // box collider of character (for climbing)
     private CapsuleCollider2D capsuleCollider; // capsule collider for character (for hit registration)
-    private Rigidbody2D snailRb;
+    private Rigidbody2D snailRb;        // rigibody of snail     
 
     private float maxVelocityX = 8.0f;              // Max velocity of the character
     private float walljumpcooldown = 0.0f;          // Cooldown of wall jump
@@ -25,6 +24,8 @@ public class Character2Dcontroller : MonoBehaviour
     private bool jumpingState = false;
     private bool sprintJumpState = false;
     private bool sprintState = false;
+
+    private Average averageDist = new Average();
 
     // Initialize character objects on startup
     private void Start()
@@ -53,8 +54,11 @@ public class Character2Dcontroller : MonoBehaviour
         animator.SetBool("Sprint", sprintState);
         animator.SetBool("Fall", (body.velocity.y < -0.3f) && !animator.GetBool("WallCheck"));
 
-        getSnailDistance();
-
+        // Need to check if game is paused to not update Time.timeScale
+        if (!GameManager.gameIsPaused) {
+            getSnailDistance();
+        }
+        
         // Handle all logic for when character is on the ground
         if (isGrounded())
         {
@@ -227,7 +231,7 @@ public class Character2Dcontroller : MonoBehaviour
 
     void OnCollisionStay2D(Collision2D col) {
         if (col.gameObject.tag == "Snail") {
-            Debug.Log("hit snail");
+            GameManager.instance.GameOver();
         }
     }
 
@@ -239,6 +243,11 @@ public class Character2Dcontroller : MonoBehaviour
         } else {
             Time.timeScale = 1f;
         }
+        averageDist.update(dist);
     }
 
+    // Fucntion for returning the average distance
+    public float getAverage() {
+        return averageDist.getAverage();
+    }
 }

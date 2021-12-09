@@ -9,15 +9,17 @@ public class StaminaBar : MonoBehaviour
     [SerializeField] private float regenWait;   // Time before regen starts
 
     public Slider staminaBar;   // Stamina bar slider
-
-    private int maxStamina = 2000;  // max stamina of character
-    private int currentStamina;     // current stamina of character
+    public static StaminaBar instance;  // create an instance of the stamina bar
 
     // Timer for controlling how fast stamina is regenerated
     private WaitForSeconds regenTick; 
     private Coroutine regen;
 
-    public static StaminaBar instance;  // create an instance of the stamina bar
+    private int maxStamina = 2000;  // max stamina of character
+    private int currentStamina;     // current stamina of character    
+    private int timesEmptied = 0;   // number of times the stamina bar was emptied
+
+    private Average averageStamina = new Average(); // average stamina over level
 
     // Run once the first time the scene is loaded in
     private void Awake()
@@ -36,11 +38,15 @@ public class StaminaBar : MonoBehaviour
         regenTick = new WaitForSeconds(regenSpeed);
     }
 
+    // Update runs every frame
+    void Update() {
+        averageStamina.update(currentStamina);
+    }
 
     // Function for using stamina
     public void UseStamina(int amount)
     {   
-        if(currentStamina - amount >= 0)
+        if(currentStamina - amount > 0)
         {   
             // If there is still stamina in the bar, use some
             currentStamina -= amount;
@@ -56,6 +62,7 @@ public class StaminaBar : MonoBehaviour
             // If there is no stamina, debug
             currentStamina = 0;
             staminaBar.value = currentStamina;
+            timesEmptied++;
         }
     }
 
@@ -76,5 +83,15 @@ public class StaminaBar : MonoBehaviour
     // Function for getting the current stamina of the bar
     public int getStamina() {
         return currentStamina;
+    }
+
+    // Fucntion for returning timesEmptied
+    public int getTimesEmptied() {
+        return timesEmptied;
+    }
+
+    // Function for returning the average stamina
+    public float getAverage() {
+        return averageStamina.getAverage() / maxStamina;
     }
 }
