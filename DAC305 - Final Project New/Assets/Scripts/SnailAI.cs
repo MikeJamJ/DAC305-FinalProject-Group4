@@ -6,6 +6,7 @@ using Pathfinding;
 public class SnailAI : MonoBehaviour
 {
     public Transform target;    // Target of the snail (i.e the player)
+    public Transform snailGFX;  // snail graphics
 
     public float speed = 4f;                // speed of snail
     public float nextWaypointDistance = 3f; // distance to next waypoint before moving towards it
@@ -56,6 +57,13 @@ public class SnailAI : MonoBehaviour
 
         if (distance < nextWaypointDistance) {
             currentWaypoint++;
+        }
+
+        // Flip enemy sprite based on direction
+        if (body.velocity.x >= 0.01f) {
+            snailGFX.localScale = new Vector3(1f, 1f, 1f);
+        } else if (body.velocity.x <= -0.01f) {
+            snailGFX.localScale = new Vector3(-1f, 1f, 1f);
         }
 
     }
