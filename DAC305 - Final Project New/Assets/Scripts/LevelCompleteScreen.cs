@@ -11,6 +11,14 @@ public class LevelCompleteScreen : MonoBehaviour
     public Text emptiedStamina;
     public Text averageDistance;
 
+    public Button restartButton;
+    public Button nextLevelButton;
+
+    void Start() {
+        restartButton.onClick.AddListener(RestartButton);
+        nextLevelButton.onClick.AddListener(NextLevelButton);
+    }
+
     // Function for assigning text field values when the level is completed
     public void Setup(float time, float stamina, float empty, float distance) {
         gameObject.SetActive(true);
@@ -23,5 +31,10 @@ public class LevelCompleteScreen : MonoBehaviour
     // Function for handling the restart button
     public void RestartButton() {
         GameManager.instance.Restart();
+    }
+
+    // Function for handling the restart button
+    public void NextLevelButton() {
+        GameManager.instance.LoadNextLevel();
     }
 }

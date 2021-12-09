@@ -18,6 +18,12 @@ public class GameManager : MonoBehaviour
     // Used for checking if the game is paused
     public static bool gameIsPaused;
 
+    private string[] sceneNames =  new string[] {
+        "Level1",
+        "Level2",
+        "Level3"
+    };
+
     void Awake() {
         instance = this;
         Time.timeScale = 1f;
@@ -70,7 +76,28 @@ public class GameManager : MonoBehaviour
 
     // Function for restarting the level
     public void Restart() {
-        Debug.Log(Time.timeScale);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void LoadNextLevel() {
+        string currentScene = SceneManager.GetActiveScene().name;
+
+        switch (currentScene) {
+            case "Level1":
+                Debug.Log("2");
+                SceneManager.LoadScene(sceneNames[1]);
+                break;
+            case "Level2":
+                Debug.Log("3");
+                SceneManager.LoadScene(sceneNames[2]);
+                break;
+            case "Level3":
+                Debug.Log("4");
+                SceneManager.LoadScene(sceneNames[0]);
+                break;
+            default:
+                break;
+
+        }
     }
 }
