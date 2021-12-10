@@ -25,6 +25,7 @@ public class StaminaBar : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        currentStamina = 0;
     }
 
     // Start is called before the first frame update

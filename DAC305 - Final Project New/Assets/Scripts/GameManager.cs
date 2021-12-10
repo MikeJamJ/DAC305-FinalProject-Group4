@@ -20,8 +20,8 @@ public class GameManager : MonoBehaviour
 
     private string[] sceneNames =  new string[] {
         "Level1",
-        "Level2",
-        "Level3"
+        "Level3",
+        "Level2"
     };
 
     void Awake() {
@@ -84,16 +84,16 @@ public class GameManager : MonoBehaviour
 
         switch (currentScene) {
             case "Level1":
-                Debug.Log("2");
-                SceneManager.LoadScene(sceneNames[1]);
+                Debug.Log("3");
+                SceneManager.LoadScene("Level3");
                 break;
             case "Level2":
-                Debug.Log("3");
-                SceneManager.LoadScene(sceneNames[2]);
+                Debug.Log("1");
+                SceneManager.LoadScene("Level1");
                 break;
             case "Level3":
-                Debug.Log("4");
-                SceneManager.LoadScene(sceneNames[0]);
+                Debug.Log("2");
+                SceneManager.LoadScene("Level2");
                 break;
             default:
                 break;
