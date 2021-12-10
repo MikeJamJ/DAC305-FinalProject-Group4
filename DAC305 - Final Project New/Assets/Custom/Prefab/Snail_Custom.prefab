@@ -216,5 +216,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   snailGFX: {fileID: 8660566368970513850}
-  speed: 300
+  speed: 200
   nextWaypointDistance: 3
